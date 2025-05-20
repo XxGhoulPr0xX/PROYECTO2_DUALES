@@ -1,6 +1,3 @@
-Claro, el texto que escribiste ya está muy bien estructurado para un `README.md` de GitHub. A continuación te lo entrego en **formato listo para pegar directamente** en el archivo `README.md`, con una estructura clara, markdown válido y todos los elementos bien formateados:
-
-````markdown
 # 🗑️ Smart Waste Classification System
 
 ## 📝 Descripción del Proyecto
@@ -41,9 +38,8 @@ Integración principal que:
 
 - Python 3.8+
 - Bibliotecas necesarias:
-  ```bash
   pip install opencv-python tensorflow numpy matplotlib pyserial
-````
+
 
 * ESP32 programado para recibir comandos seriales
 * Cámara web compatible
@@ -52,24 +48,18 @@ Integración principal que:
 
 ### 1. Prueba del modelo:
 
-```bash
 python pruebaModelos.py
-```
 
 ### 2. Detección por cámara:
 
-```bash
 python detectarPorCamara.py
-```
 
 * Presione `q` para salir
 * Detecciones se muestran en tiempo real
 
 ### 3. Sistema completo:
 
-```bash
 python PythonToEsp32.py
-```
 
 * Asegúrese de tener el ESP32 conectado
 * Las clasificaciones se enviarán automáticamente
@@ -78,28 +68,23 @@ python PythonToEsp32.py
 
 Edite las rutas en los archivos según su sistema:
 
-```python
 model_path = "ruta/a/tu/modelo.h5"
 image_path = "ruta/a/tu/imagen.jpg"
 puerto = "COMX"  # Cambiar según tu puerto serial
-```
 
 ## 📌 Notas Importantes
 
 * El modelo incluido (`predictWaste12.h5`) fue entrenado con un dataset específico.
 * Para mejores resultados, ajuste el umbral de confianza:
 
-  ```python
   confianza = 0.75  # Valor entre 0 y 1
-  ```
 * El ESP32 debe estar programado para recibir:
 
-  * `'B'` (66) para Biodegradable
-  * `'N'` (78) para No biodegradable
+  * 'B' (66) para Biodegradable
+  * 'N' (78) para No biodegradable
 
 ## 📊 Estructura del Proyecto
 
-```
 Proyecto/
 ├── Modelos/
 │   └── Identificacion de images/
@@ -108,7 +93,7 @@ Proyecto/
 ├── detectarPorCamara.py
 ├── pruebaModelos.py
 └── PythonToEsp32.py
-```
+
 
 ## 🤝 Contribuciones
 
@@ -119,12 +104,5 @@ Por favor abre un issue o pull request para:
 * Optimizaciones de código
 * Nuevas funcionalidades
 
----
 
-🔄 **Actualizado**: Mayo 2023
-🏷️ **Etiquetas**: Visión por Computadora, IoT, Clasificación de Residuos
-
-```
-
-¿Quieres que te ayude a armar el repositorio completo o agregar imágenes como ejemplo del sistema en acción?
-```
+🔄 **Actualizado**: Mayo 2025
