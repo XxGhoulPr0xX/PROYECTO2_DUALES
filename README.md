@@ -68,9 +68,9 @@ python PythonToEsp32.py
 
 Edite las rutas en los archivos según su sistema:
 
-model_path = "ruta/a/tu/modelo.h5"
-image_path = "ruta/a/tu/imagen.jpg"
-puerto = "COMX"  # Cambiar según tu puerto serial
+model_path = "ruta/a/tu/modelo.h5"   
+image_path = "ruta/a/tu/imagen.jpg"  
+puerto = "COMX"  # Cambiar según tu puerto serial  
 
 ## 📌 Notas Importantes
 
@@ -85,20 +85,20 @@ puerto = "COMX"  # Cambiar según tu puerto serial
 
 ## 📊 Estructura del Proyecto
 
-Proyecto/
-├── Modelos/
-│   └── Identificacion de images/
-│       └── predictWaste12.h5
-├── conexionEsp32.py
-├── detectarPorCamara.py
-├── pruebaModelos.py
-└── PythonToEsp32.py
+Proyecto/  
+├── Modelos/  
+│   └── Identificacion de images/  
+│       └── predictWaste12.h5  
+├── conexionEsp32.py  
+├── detectarPorCamara.py  
+├── pruebaModelos.py  
+└── PythonToEsp32.py  
 
 
 ## 🤝 Contribuciones
 
-¡Contribuciones son bienvenidas!
-Por favor abre un issue o pull request para:
+¡Contribuciones son bienvenidas!  
+Por favor abre un issue o pull request para:  
 
 * Mejoras en el modelo
 * Optimizaciones de código
