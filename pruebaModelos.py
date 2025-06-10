@@ -29,7 +29,7 @@ class Prueba:
         return img_array
 
     def predictImage(self, modelo, img_array, clases):
-        predicciones = modelo.predict(img_array, verbose=0)  # verbose=0 para silenciar la salida
+        predicciones = modelo.predict(img_array)
         clase_predicha = np.argmax(predicciones[0])
         probabilidad = np.max(predicciones[0])
         nombre_clase = clases[clase_predicha]
@@ -61,6 +61,6 @@ class Prueba:
 
 if __name__ == "__main__":   
     model_path = "C:\\Users\\XxGho\\OneDrive\\Documentos\\Escuela\\Proceso Dual\\Proyecto\\2° Proyecto\\Python\\Modelos\\Identificacion de images\\predictWaste12.h5"
-    image_path = "C:\\Users\\XxGho\\OneDrive\\Documentos\\Escuela\\Proceso Dual\\Proyecto\\2° Proyecto\\trashnet-master\\data\\dataset-original\\trash\\trash134.jpg"
+    image_path = "C:\\Users\\XxGho\\OneDrive\\Documentos\\Escuela\\Proceso Dual\\Proyecto\\2° Proyecto\\TEST\\B\\TEST_BIODEG_HFL_8.jpg"
     alpha = Prueba(image_path, model_path)
     alpha.run()
