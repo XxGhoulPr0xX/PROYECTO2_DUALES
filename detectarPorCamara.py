@@ -7,7 +7,7 @@ import os
 class WasteCameraDetector:
     def __init__(self, model_path, confianza=0.75):
         self.model = self.load_model(model_path)
-        self.cap = cv2.VideoCapture(0)
+        self.cap = cv2.VideoCapture(1)
         self.conf_threshold = confianza
         self.class_labels = {0: 'Biodegradable', 1: 'No biodegradable'}
         self.class_colors = {0: (0, 255, 0), 1: (0, 0, 255)}

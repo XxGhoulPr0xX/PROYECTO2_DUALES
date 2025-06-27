@@ -39,7 +39,6 @@ class PythonToArduino:
                         print("🔍 Iniciando detección...")
                         tiempo_inicio = time.time()
                         self.lastCommand = None
-                
                 if self.bandera is True:
                     clase_actual = self.alpha.obtener_deteccion()
                     if time.time() - tiempo_inicio >= self.timeDetection:
@@ -47,7 +46,7 @@ class PythonToArduino:
                         self.alpha.pausar()
                         print("⏸️ Cámara pausada, esperando nuevo objeto...")
                         continue
-                    if clase_actual in ["Biodegradable", "No biodegradable"]:
+                    if clase_actual:
                         comando = self.mapearClaseToComando(clase_actual)
                         if (comando is not None and comando != self.lastCommand and 
                             (time.time() - self.timeOfLastSend) >= self.shippingInterval):
