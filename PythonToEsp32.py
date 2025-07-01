@@ -17,7 +17,7 @@ class PythonToArduino:
     def mapearClaseToComando(self, clase):
         clases = {
             "Biodegradable": ord('B'),
-            "No biodegradable": ord('N')
+            "No Biodegradable": ord('N')
         }
         return clases.get(clase, None) 
 
