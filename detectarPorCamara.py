@@ -5,9 +5,9 @@ from tensorflow.keras.applications.resnet50 import preprocess_input
 import os
 
 class WasteCameraDetector:
-    def __init__(self, model_path, confianza=0.75):
+    def __init__(self, model_path, confianza=0.75,camara=1):
         self.model = self.load_model(model_path)
-        self.cap = cv2.VideoCapture(1)
+        self.cap = cv2.VideoCapture(camara)
         self.conf_threshold = confianza
         self.class_labels = {0: 'No Biodegradable', 1: 'Biodegradable'}
         self.class_colors = {0: (0, 255, 0), 1: (0, 0, 255)}
@@ -80,6 +80,10 @@ class WasteCameraDetector:
         key = cv2.waitKey(1)
         if key & 0xFF == ord('q'):
             return "salir"
+        elif key & 0xFF == ord('p'):
+            self.pausar()
+        elif key & 0xFF == ord('c'):
+            self.continuar()
         return label
     
     def __del__(self):
@@ -88,7 +92,7 @@ class WasteCameraDetector:
 
 if __name__ == "__main__":
     model_path = "C:\\Users\\XxGho\\OneDrive\\Documentos\\Escuela\\Proceso Dual\\Proyecto\\2° Proyecto\\Python\\Modelos\\Identificacion de images\\predictWaste12.h5"
-    detector = WasteCameraDetector(model_path, confianza=0.75)
+    detector = WasteCameraDetector(model_path, confianza=0.70,camara=0)
     while True:
         resultado = detector.obtener_deteccion()
         if resultado == "salir":

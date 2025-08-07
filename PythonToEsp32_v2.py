@@ -1,5 +1,5 @@
 from conexionEsp32 import *
-from detectarPorCamara import *
+from detectarPorCamara5Frames import *
 import time
 
 class PythonToArduino:
@@ -37,7 +37,7 @@ class PythonToArduino:
                     if mensaje == "objeto detectado":
                         self.bandera = True
                         self.lastValidDetection = None
-                        self.alpha.continuar()
+                        self.alpha.pausar()
                         print("🔍 Sensor activado: Iniciando detección por cámara ({} segundos)...".format(self.timeDetection))
                         tiempo_inicio = time.time()
                 if self.bandera:
@@ -52,7 +52,7 @@ class PythonToArduino:
                             time.sleep(0.1)
                         else:
                             print("[CONSOLA] Ninguna detección válida en el período de 5 segundos")
-                        self.alpha.pausar()
+                        self.alpha.continuar()
                         self.bandera = False
                         print("⏸️ Cámara pausada, esperando nuevo objeto...")
 
@@ -72,7 +72,7 @@ if __name__ == "__main__":
     model_path = "C:\\Users\\XxGho\\OneDrive\\Documentos\\Escuela\\Proceso Dual\\Proyecto\\2° Proyecto\\Python\\Modelos\\Identificacion de images\\predictWaste12.h5"
     com = "COM3"
     serial = 9600
-    camara = 1
+    camara = 0
     try:
         beta = PythonToArduino(model_path, confianza, com, serial,camara)
         beta.ejecutar()
