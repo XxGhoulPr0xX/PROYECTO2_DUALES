@@ -1,5 +1,5 @@
 from conexionEsp32 import *
-from detectarPorCamara import *
+from detectarPorCamara_RT import *
 import time
 
 class PythonToArduino:

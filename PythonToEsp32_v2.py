@@ -4,14 +4,9 @@ import time
 
 class PythonToArduino:
     def __init__(self, path_model, confianza, puerto, baudrate,camara):
-        self.alpha = WasteCameraDetector(path_model, confianza,camara)
+        self.alpha = Camera(path_model,camara,confianza)
         self.charlie = conexionEsp32(puerto, baudrate)
-        self.timeDetection = 5  # Tiempo de detección con cámara (5 segundos)
-        self.lastCommand = None
-        self.timeOfLastSend = 0
-        self.shippingInterval = 0.5  # Tiempo mínimo entre comandos
-        self.bandera = False  # Controla si la cámara debe estar activa
-        self.lastValidDetection = None  # Almacena la última detección válida
+        self.bandera = False 
         if not self.charlie.establecerConexion():
             raise RuntimeError("No se pudo conectar al ESP32")
 
@@ -36,45 +31,20 @@ class PythonToArduino:
                     mensaje = self.charlie.esperandoMensaje()
                     if mensaje == "objeto detectado":
                         self.bandera = True
-                        self.lastValidDetection = None
-                        self.alpha.pausar()
-                        print("🔍 Sensor activado: Iniciando detección por cámara ({} segundos)...".format(self.timeDetection))
-                        tiempo_inicio = time.time()
+                        start_time = time.time()
+                        while (time.time() - start_time) <= 5:
+                            self.alpha.inicarCamara()
                 if self.bandera:
-                    clase_actual = self.alpha.obtener_deteccion()
-                    if clase_actual:
-                        self.lastValidDetection = clase_actual
-                        print(f"[CONSOLA] Clase detectada: {clase_actual} (Guardada para envío)")
-                    if time.time() - tiempo_inicio >= self.timeDetection:
-                        if self.lastValidDetection:
-                            comando = self.mapearClaseToComando(self.lastValidDetection)
-                            self.enviarBytes(comando)
-                            time.sleep(0.1)
-                        else:
-                            print("[CONSOLA] Ninguna detección válida en el período de 5 segundos")
-                        self.alpha.continuar()
+                    self.alpha.frames_guardados = []
+                    resultado, confianza = self.alpha.analizarFramesGuardados()
+                    if resultado:
+                        print(f"Resultado: {resultado} (Confianza: {confianza:.2f})")
+                        comando = self.mapearClaseToComando(resultado)
+                        self.enviarBytes(comando)
                         self.bandera = False
-                        print("⏸️ Cámara pausada, esperando nuevo objeto...")
+                        cv2.destroyWindow("Cámara")
 
-        except KeyboardInterrupt:
-            self.alpha.pausar()
-            self.charlie.cerrarConexion()
-            print("\nPrograma terminado por el usuario")
         except Exception as e:
             print(f"Error inesperado: {str(e)}")
         finally:
-            self.alpha.pausar()
-            self.charlie.cerrarConexion()
-            print("Sistema detenido completamente")
-
-if __name__ == "__main__":
-    confianza = 0.60
-    model_path = "C:\\Users\\XxGho\\OneDrive\\Documentos\\Escuela\\Proceso Dual\\Proyecto\\2° Proyecto\\Python\\Modelos\\Identificacion de images\\predictWaste12.h5"
-    com = "COM3"
-    serial = 9600
-    camara = 0
-    try:
-        beta = PythonToArduino(model_path, confianza, com, serial,camara)
-        beta.ejecutar()
-    except Exception as e:
-        print(f"Error al iniciar el sistema: {str(e)}")
+            cv2.destroyAllWindows()

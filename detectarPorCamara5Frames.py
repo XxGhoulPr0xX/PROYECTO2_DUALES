@@ -14,8 +14,6 @@ class Camera:
         self.frames_guardados = []
         self.class_labels = {0: 'No Biodegradable', 1: 'Biodegradable'}
 
-    def inicarCamara(self):
-        self.ret, self.frame = self.cap.read()
 
     def cargarModelo(self,ruta):
         if not os.path.exists(ruta):
@@ -41,7 +39,14 @@ class Camera:
             print("Error: No se pudo capturar el frame.")
             return None
         return cv2.flip(self.frame, 1)
-
+    
+    def inicarCamara(self):
+        self.ret, self.frame = self.cap.read()
+        frame = self.obtenerUltimoF()
+        if frame is not None:
+            cv2.imshow("Cámara", frame)
+        cv2.waitKey(1)
+        
     def guardarFrame(self):
         for _ in range(5):
             self.inicarCamara()  # Reiniciar el frame
@@ -49,7 +54,7 @@ class Camera:
             if frame is not None:
                 self.frames_guardados.append(frame.copy())
                 cv2.imshow("Cámara", frame)  # Muestra el frame actual
-                cv2.waitKey(200)  # Espera 200ms (0.2s) entre frames
+                cv2.waitKey(500)  # Espera 200ms (0.2s) entre frames
 
     
     def preprocess_frame(self, frame):
@@ -58,35 +63,32 @@ class Camera:
         return preprocess_input(img_array)
         
     def analizarFramesGuardados(self):
-        print("Analisis ejeuctado de los siguientes 5 frames")
+        print("Análisis ejecutado de los siguientes 5 frames")
         self.guardarFrame()
         total_confidence = 0.0
-        predictions_count = {0: 0, 1: 0}  # Contador de predicciones por clase
-        
+        predictions_count = {0: 0, 1: 0} 
+        valid_predictions = 0 
         for frame in self.frames_guardados:
             if frame is None:
                 continue
-                
             processed = self.preprocess_frame(frame)
             predictions = self.modelo.predict(processed, verbose=0)[0]
             predicted_class = np.argmax(predictions)
             confidence = np.max(predictions)
-            
-            if confidence >=self.confianza:
+            if confidence >= self.confianza:
                 predictions_count[predicted_class] += 1
                 total_confidence += confidence
-        if sum(predictions_count.values()) == 0:
+                valid_predictions += 1
+        if valid_predictions == 0 or (total_confidence / valid_predictions) < self.confianza:
             return None, 0.0
+        
         predominant_class = max(predictions_count, key=predictions_count.get)
-        avg_confidence = total_confidence / sum(predictions_count.values())
+        avg_confidence = total_confidence / valid_predictions
         
         return self.class_labels[predominant_class], avg_confidence
 
     def run(self):
         self.inicarCamara()
-        frame = self.obtenerUltimoF()
-        if frame is not None:
-            cv2.imshow("Cámara", frame)
         
         key = cv2.waitKey(1)
         if key & 0xFF == ord('q'):
@@ -105,10 +107,3 @@ class Camera:
     def __del__(self):
         self.cap.release()
         cv2.destroyAllWindows()
-
-if __name__ == "__main__":
-    camara = Camera("C:\\Users\\XxGho\\OneDrive\\Documentos\\Escuela\\Proceso Dual\\Proyecto\\2° Proyecto\\Python\\Modelos\\Identificacion de images\\predictWaste12.h5", camara=0,confianza=0.70)
-    while True:
-        resultado = camara.run()
-        if resultado == "salir":
-            break
