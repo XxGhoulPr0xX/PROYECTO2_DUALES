@@ -59,8 +59,10 @@ pip install -r requirements.txt
 ## ⚙️ Configuración Hardware
 | Componente       | Conexión ESP32 | Notas                     |
 |------------------|----------------|---------------------------|
-| Sensor HC-SR04   | TRIG:GPIO1, ECHO:GPIO2 | Rango 2-10 cm   |
-| Servo SG90       | GPIO13         | Movimiento 0°-180°        |
+| Sensor HC-SR04   | TRIG:GPIO1, ECHO:GPIO3 | Rango 2-10 cm   |
+| Servo SG90       | GPIO12         | Movimiento 0°-180°        |
+|TFT DISPLAY       | Revisar el Esp32ToPythonLed.ino para ver los puertos         | Mensaje del tipo de residuo dado        |
+
 
 ## 📊 Modelo de Clasificación
 - **Arquitectura**: ResNet50 modificada
@@ -92,8 +94,8 @@ python PythonToEsp32_v2.py
 ## 🔄 Versiones Disponibles
 | Versión          | Ventajas                     | Uso Recomendado         |
 |------------------|------------------------------|-------------------------|
-| Tiempo Real      | Menor latencia               | Objetos estáticos       |
-| 5 Frames         | Mayor precisión              | Objetos en movimiento   |
+| Tiempo Real      | Menor latencia               | Objetos en movimiento       |
+| 5 Frames         | Mayor precisión              | Objetos estáticos   |
 
 ## 📌 Notas Técnicas
 - **Confianza mínima**: Ajustable en código (default: 70%)
@@ -108,7 +110,7 @@ python PythonToEsp32_v2.py
 ```
 /proyecto-clasificacion
 ├── /Modelos
-│   └── tu_modelo.h5          # Modelo preentrenado
+│   └── tu_modelo.h5               # Modelo preentrenado
 ├── /Arduino
 │   └── Esp32ToPython.ino          # Firmware ESP32
 ├── /TEST                          # Imágenes de prueba
