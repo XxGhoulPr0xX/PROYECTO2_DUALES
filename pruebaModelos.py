@@ -59,7 +59,7 @@ class Prueba:
             print(f"\nError: {str(e)}")
 
 if __name__ == "__main__":   
-    model_path = "C:\\Users\\XxGho\\OneDrive\\Documentos\\Escuela\\Proceso Dual\\Proyecto\\2° Proyecto\\Python\\Modelos\\Identificacion de images\\predictWaste12.h5"
-    image_path = "C:\\Users\\XxGho\\OneDrive\\Documentos\\Escuela\\Proceso Dual\\Proyecto\\2° Proyecto\\TEST\\N\\TEST_NBIODEG_ORI_4359.jpg"
+    model_path = "C:\\Users\\XxGho\\OneDrive\\Documentos\\Escuela\\Proceso Dual\\Proyecto\\2° Proyecto\\Python\\Modelos\\Identificacion de images\\predictWaste_mobilenetv2.h5"
+    image_path = "C:\\Users\\XxGho\\OneDrive\\Documentos\\Escuela\\Proceso Dual\\Proyecto\\2° Proyecto\\TEST\\B\\bottle-sand-9097251.webp"
     alpha = Prueba(image_path, model_path)
     alpha.run()
