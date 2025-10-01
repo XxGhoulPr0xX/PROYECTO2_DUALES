@@ -89,11 +89,3 @@ class WasteCameraDetector:
     def __del__(self):
         self.cap.release()
         cv2.destroyAllWindows()
-
-if __name__ == "__main__":
-    model_path = "C:\\Users\\XxGho\\OneDrive\\Documentos\\Escuela\\Proceso Dual\\Proyecto\\2° Proyecto\\Python\\Modelos\\Identificacion de images\\predictWaste12.h5"
-    detector = WasteCameraDetector(model_path, confianza=0.70,camara=0)
-    while True:
-        resultado = detector.obtener_deteccion()
-        if resultado == "salir":
-            break

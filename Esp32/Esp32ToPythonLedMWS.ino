@@ -132,8 +132,9 @@ void procesarComando(char cmd) {
  * @brief Manejador de eventos del cliente WebSocket.
  * @param type Tipo de evento recibido (conexión, desconexión, mensaje, etc.).
  * @param payload Puntero a los datos del mensaje.
+ * @param length Longitud de los datos recibidos.
  */
-void conexionWebSocket(WStype_t type, uint8_t * payload) {
+void conexionWebSocket(WStype_t type, uint8_t * payload, size_t length) {
     switch (type) {
     case WStype_DISCONNECTED:
         Serial.printf("[WSc] Desconectado!\n");
@@ -157,7 +158,7 @@ void conexionWebSocket(WStype_t type, uint8_t * payload) {
 // --- Configuración inicial (se ejecuta una vez) ---
 
 void setup() {
-    Serial.begin(115200);
+    Serial.begin(9600);
 
     // Inicialización de componentes físicos
     servoMotor.attach(SERVO_PIN); // Asocia el objeto servo al pin físico
@@ -184,7 +185,6 @@ void setup() {
     WiFi.begin(ssid, password);
     while (WiFi.status() != WL_CONNECTED) {
         delay(500);
-        Serial.print(".");
     }
     Serial.println("\nWiFi conectado.");
     Serial.print("Direccion IP: ");

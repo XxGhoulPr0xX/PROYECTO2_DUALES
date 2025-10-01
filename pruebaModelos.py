@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import os
 
 
-class Prueba:
+class pruebaModeloIA:
     def __init__(self, imagen, modelo):
         self.modelo = self.loadModel(modelo)
         self.imagen = imagen
@@ -57,9 +57,3 @@ class Prueba:
             self.showResults(self.imagen, prediccion, self.clases)
         except Exception as e:
             print(f"\nError: {str(e)}")
-
-if __name__ == "__main__":   
-    model_path = "C:\\Users\\XxGho\\OneDrive\\Documentos\\Escuela\\Proceso Dual\\Proyecto\\2° Proyecto\\Python\\Modelos\\Identificacion de images\\predictWaste_mobilenetv2.h5"
-    image_path = "C:\\Users\\XxGho\\OneDrive\\Documentos\\Escuela\\Proceso Dual\\Proyecto\\2° Proyecto\\TEST\\B\\bottle-sand-9097251.webp"
-    alpha = Prueba(image_path, model_path)
-    alpha.run()

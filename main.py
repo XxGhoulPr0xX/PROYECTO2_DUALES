@@ -1,13 +1,12 @@
-from PythonToEsp32_v2 import *
+from PythonToEsp32_v3 import *
 
 if __name__ == "__main__":
-    confianza = 0.70
-    model_path = "C:\\Users\\XxGho\\OneDrive\\Documentos\\Escuela\\Proceso Dual\\Proyecto\\2° Proyecto\\Python\\Modelos\\Identificacion de images\\predictWaste12.h5"
-    com = "COM3"
-    serial = 9600
-    camara = 0
+    host_servidor = "192.168.0.121"
+    puerto_servidor = 8765
+    modelo="C:\\Users\\XxGho\\OneDrive\\Documentos\\Escuela\\Proceso Dual\\Proyecto\\2° Proyecto\\Python\\Modelos\\Identificacion de images\\predictWaste_mobilenetv2.h5"
+    imagen=""
+    charlie=PythonToESP32(host_servidor,puerto_servidor,imagen,modelo)
     try:
-        alpha = PythonToArduino(model_path, confianza, com, serial,camara)
-        alpha.ejecutar()
-    except Exception as e:
-        print(f"Error al iniciar el sistema: {str(e)}")
+        asyncio.run(charlie.ejecuctar())
+    except KeyboardInterrupt:
+        print("Servidor detenido por el usuario.")
