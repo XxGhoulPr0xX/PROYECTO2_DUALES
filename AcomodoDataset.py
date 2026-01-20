@@ -3,8 +3,8 @@ import shutil
 from PIL import Image  
 
 extensiones_imagen = ['.jpg', '.jpeg', '.png', '.bmp', '.gif', '.tiff']
-bi = ["cardboard", "paper", "food organics", "vegetation", "textile trash"]
-nb = ["glass", "metal", "plastic", "miscellaneous trash"]
+bi = ["cardboard", "paper", "food organics", "vegetation", "textile trash","b"]
+nb = ["glass", "metal", "plastic", "miscellaneous trash","n"]
 
 def listar_carpetas(ruta,b,n):
     elementos = os.listdir(ruta)   
@@ -44,28 +44,32 @@ def cambiarNombreArchivos(directorio, prefijo, nuevo_tamaño=(200, 200)):
         else:
             os.rename(origen_path, nuevo_path)
 
-def main(ruta1, ruta2, b, n):
+def main():
     print("Procesando primera ruta...")
     listar_carpetas(ruta1, b, n)
     
     print("\nProcesando segunda ruta...")
     listar_carpetas(ruta2, b, n)
     
+    #print("\nProcesando tercer ruta...")
+    #listar_carpetas(ruta3, b, n)
+
     print("\nRenombrando archivos biodegradables...")
-    cambiarNombreArchivos(b, "biodegradable", (200, 200))
+    cambiarNombreArchivos(b, "biodegradable", (224, 224))
     
     print("\nRenombrando archivos no biodegradables...")
-    cambiarNombreArchivos(n, "nobiodegradable", (200, 200))
+    cambiarNombreArchivos(n, "nobiodegradable", (224, 224))
     
     print("\n¡Proceso completado!")
 
 if __name__ == "__main__":
-    ruta1="C:\\Users\\XxGho\\OneDrive\\Documentos\\Escuela\\Proceso Dual\\Proyecto\\2° Proyecto\\Dataset bio y no-bio\\realwaste-main"
-    ruta2="C:\\Users\\XxGho\\OneDrive\\Documentos\\Escuela\\Proceso Dual\\Proyecto\\2° Proyecto\\Dataset bio y no-bio\\dataset-resized"
+    ruta1="C:\\Users\\XxGho\\OneDrive\\Documentos\\Escuela\\Proceso Dual\\Proyecto\\2° Proyecto\\Dataset uso libre\\realwaste-main"
+    ruta2="C:\\Users\\XxGho\\OneDrive\\Documentos\\Escuela\\Proceso Dual\\Proyecto\\2° Proyecto\\Dataset uso libre\\dataset-resized"
+    #ruta3="C:\\Users\\XxGho\\OneDrive\\Documentos\\Escuela\\Proceso Dual\\Proyecto\\2° Proyecto\\Dataset uso libre\\fotosReales"
     b="C:\\Users\\XxGho\\OneDrive\\Documentos\\Escuela\\Proceso Dual\\Proyecto\\2° Proyecto\\Dataset bio y no-bio\\B"
     n="C:\\Users\\XxGho\\OneDrive\\Documentos\\Escuela\\Proceso Dual\\Proyecto\\2° Proyecto\\Dataset bio y no-bio\\N"
     if not os.path.exists(b):
         os.makedirs(b)
     if not os.path.exists(n):
         os.makedirs(n)
-    main(ruta1, ruta2, b, n)
+    main()

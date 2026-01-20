@@ -1,16 +1,16 @@
 #include <ESP32Servo.h>
 
-#define SERVO_PIN 13
+#define SERVO_PIN 3           
 
 Servo servoMotor;
 
 const byte angulos[2] = {0, 180};
 const char comandos[2] = {'b', 'n'};
-const int velocidad = 20;
+const int velocidad = 5;
 
 
 void setup() {
-    Serial.begin(9600);
+    Serial.begin(115200);
     servoMotor.attach(SERVO_PIN);  
     servoMotor.write(90);
 }
